@@ -1,8 +1,8 @@
 ru_alf = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 two_sim = [i+j for i  in ru_alf for j in ru_alf]
 
-with open("Dostoevsky_Povesti_i_rasskazy.txt", encoding="utf-8") as f1:
-    with open("Chekhov_Sochineniya.txt", encoding="utf-8") as f2:
+with open(r"data\Dostoevsky_Povesti_i_rasskazy.txt", encoding="utf-8") as f1:
+    with open(r"data\Chekhov_Sochineniya.txt", encoding="utf-8") as f2:
         txt_1 = f1.read().lower()
         txt_2 = f2.read().lower()
         couple = [[i, txt_1.count(i), txt_2.count(i)] for i in two_sim]

@@ -1,4 +1,4 @@
-file = open("input.txt", encoding="utf-8").read().lower()
+file = open(r"data\input.txt", encoding="utf-8").read().lower()
 
 # print(sum("111"))
 # simvols = [[i, file.count(i)/len(file)] for i in set(file)]
