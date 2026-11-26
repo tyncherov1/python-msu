@@ -15,7 +15,6 @@ def solver():
     with open(r"data\Chekhov_Sochineniya.txt", encoding="utf-8") as f:
         txt = f.read().lower()
         prev = ""
-        a = 1 / len(txt)
         for ch in txt:
             if prev in ru_alf and ch in ru_alf:
                 two_sim[prev + ch][1] += 1
