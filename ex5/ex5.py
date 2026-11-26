@@ -38,7 +38,7 @@ def run_game(rows: int = 40, cols: int = 60):
     grid = create_grid(rows, cols)
     fig, ax = plt.subplots(figsize=(8, 6))
 
-    img = ax.imshow(grid, cmap="binary")
+    img = ax.imshow(grid, cmap=plt.cm.binary_r)
     ax.set_xticks([])
     ax.set_yticks([])
     title = ax.set_title("Такт: 0")
