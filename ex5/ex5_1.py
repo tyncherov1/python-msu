@@ -7,12 +7,9 @@ def evolve_grid(rows, cols, alive = 0.25):
     while True:
         yield grid
         frame_grid = np.pad(grid, 1)
-        child = np.zeros((rows, cols), np.int8)
-        for i in (-1, 0, 1):
-            for j in (-1, 0, 1):
-                if i == 0 and j == 0:
-                    continue
-                child += np.roll(frame_grid, (i, j), (0, 1))[1:-1, 1:-1]
+        child = (frame_grid[:-2, :-2] + frame_grid[:-2, 1:-1] + frame_grid[:-2, 2:]
+        + frame_grid[1:-1, :-2] + frame_grid[1:-1, 2:] 
+        + frame_grid[2:, :-2] + frame_grid[2:, 1:-1] + frame_grid[2:,2:] ) 
         grid = ((child == 3) | ((grid == 1) & (child == 2))).astype(np.int8)
                 
 
@@ -26,7 +23,6 @@ def run_game(rows: int = 40, cols: int = 60):
     title = ax.set_title("Такт: 0")
 
     def update(frame):
-        nonlocal grid
         img.set_data(next(grid))
         title.set_text(f"Такт: {frame}")
         return [img, title]
