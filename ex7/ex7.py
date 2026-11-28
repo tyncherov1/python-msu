@@ -1,25 +1,14 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
-df = pd.read_csv(r'data\anime-dataset-2023.csv')
-genres = {genre.strip():[] for row in df['Genres'] for genre in str(row).split(',')}
+df = pd.read_csv(r'data\anime-dataset-2023.csv', na_values = ['UNKNOWN'], usecols=['Genres', 'Score']).dropna()
+df['Score'] = df['Score'].astype(float)
+df['Genres'] = df['Genres'].astype(str).str.split(', ')
 
-for i, n in zip(df["Genres"], df['Score']):
-    try:
-        n = float(n)
-    except ValueError:
-        continue
-
-    for gen in {gs.strip() for gs in i.split(',')}:
-        genres[gen].append(n)
-
-for i, j in genres.items():
-    genres[i] = sum(j) / len(j)
-
-result_tb = pd.DataFrame(
-    {
-    'Genres' : genres.keys(),
-    'Score' : genres.values()
-})
-result_tb = result_tb.sort_values("Score", ascending=False).reset_index(drop=True)
-
+result_tb = df.explode('Genres').groupby("Genres", as_index=False).mean().sort_values('Score', ascending=False).reset_index(drop=True)
 print(result_tb)
+
+plt.bar(result_tb['Genres'], result_tb['Score'])
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
