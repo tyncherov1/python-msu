@@ -6,7 +6,6 @@ df['Score'] = df['Score'].astype(float)
 df['Genres'] = df['Genres'].astype(str).str.split(', ')
 
 result_tb = df.explode('Genres').groupby("Genres", as_index=False).mean().sort_values('Score', ascending=False).reset_index(drop=True)
-print(result_tb)
 
 plt.bar(result_tb['Genres'], result_tb['Score'])
 plt.xticks(rotation=45, ha='right')
