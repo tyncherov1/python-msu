@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 df = pd.read_csv(r'data\anime-dataset-2023.csv')
 genres = {genre.strip():[] for row in df['Genres'] for genre in str(row).split(',')}
